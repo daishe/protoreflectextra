@@ -1,0 +1,143 @@
+version: "2"
+linters:
+  # https://golangci-lint.run/usage/linters/#enabled-by-default
+  enable:
+  - asasalint
+  - asciicheck
+  - bidichk
+  - bodyclose
+  - canonicalheader
+  - contextcheck
+  - copyloopvar
+  - decorder
+  - dogsled
+  - dupl
+  - dupword
+  - durationcheck
+  - err113
+  - errcheck
+  - errchkjson
+  - errname
+  - errorlint
+  - exhaustive
+  - exptostd
+  - fatcontext
+  - forcetypeassert
+  - funcorder
+  - funlen
+  - gocheckcompilerdirectives
+  - gochecknoglobals
+  - gochecknoinits
+  - gochecksumtype
+  - gocognit
+  - goconst
+  - gocritic
+  - gocyclo
+  - godot
+  - godox
+  - gomoddirectives
+  - goprintffuncname
+  - gosec
+  - gosmopolitan
+  - govet
+  - iface
+  - importas
+  - inamedparam
+  - ineffassign
+  - intrange
+  - loggercheck
+  - maintidx
+  - makezero
+  - mirror
+  - misspell
+  - mnd
+  - musttag
+  - nakedret
+  - nestif
+  - nilerr
+  - nilnesserr
+  - nilnil
+  - noctx
+  - nolintlint
+  - nosprintfhostport
+  - paralleltest
+  - perfsprint
+  - prealloc
+  - protogetter
+  - reassign
+  - recvcheck
+  - revive
+  - rowserrcheck
+  - spancheck
+  - sqlclosecheck
+  - staticcheck
+  - tagalign
+  - tagliatelle
+  - testableexamples
+  - testifylint
+  - testpackage
+  - thelper
+  - tparallel
+  - unconvert
+  - unparam
+  - unused
+  - usestdlibvars
+  - usetesting
+  - wastedassign
+  - whitespace
+
+  # https://golangci-lint.run/usage/linters/#disabled-by-default
+  disable:
+  - cyclop
+  - interfacebloat
+  - ireturn
+  - lll
+  - predeclared
+  - varnamelen
+  - wsl
+
+  settings:
+    gocritic:
+      enable-all: true
+      disabled-checks:
+      - builtinShadow
+    revive:
+      rules:
+      - name: redefines-builtin-id
+        disabled: true
+
+  exclusions:
+    generated: strict
+    warn-unused: true
+    presets:
+    - comments
+    - common-false-positives
+    - legacy
+    - std-error-handling
+    rules:
+    - path: _test\.go
+      linters:
+      - dupl
+      - forcetypeassert
+      - thelper
+    - path: _test\.go
+      source: 'func Test'
+      linters:
+      - funlen
+      - maintidx
+    - path: _test\.go
+      log: SA1019 # do not warn about depreciated method usage
+      linters:
+      - staticcheck
+    - path: _test\.go
+      log: '-compare: use require.'
+      linters:
+      - testifylint
+
+formatters:
+  enable:
+  - gofmt
+  exclusions:
+    warn-unused: true
+    generated: strict
+    paths: []
